@@ -25,23 +25,21 @@ The dataset includes 290 images and their correspoding mask, which can be consid
 
 ## Model Performance Comparisons
 
+![Original](plots/Accuracy_on_Original_Dataset.png)
 #### Trained on original dataset
 
-![Original](plots/Accuracy_on_Original_Dataset.png)
 
 The model exhibits signs of overfitting as indicated by the validation accuracy, which only aligns with the training accuracy after epoch 19. This outcome is anticipated given the limited size of the dataset. To address this issue and enhance accuracy, we should consider exploring alternative methods such as increasing the dataset size.
 
 
-#### Trained on augmented dataset with the same batch size (= 8) as used in the previous model
-
 ![Augmentation](plots/Accuracy_on_Augmented_Dataset_Batch8.png)
+#### Trained on augmented dataset with the same batch size (= 8) as used in the previous model
 
 The model trained on the augmented dataset demonstrated improved performance. The validation accuracy was able to catch up with the training accuracy in just a few epochs. This outcome suggests that the augmentation of the dataset has positively impacted the model's ability to generalize and reduce overfitting.
 
 
-#### Trained on augmented dataset with an increased batch size (= 16) 
-
 ![Augmentation](plots/Accuracy_on_Augmented_Dataset_Batch16.png)
+#### Trained on augmented dataset with an increased batch size (= 16) 
 
 In this model, both the training and validation accuracy scores converge to similar values after a few epochs. This indicates that the model is performing consistently well on both the training and validation datasets. The alignment of these scores suggests that the model is generalizing effectively and not suffering from overfitting.
 
