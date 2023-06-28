@@ -1,7 +1,7 @@
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import img_to_array, load_img
-from tensorflow.image import flip_left_right, flip_up_down, adjust_brightness
+from tensorflow.image import flip_left_right, flip_up_down, adjust_brightness, rot90
 import matplotlib.pyplot as plt
 import os
 import cv2
@@ -24,7 +24,26 @@ def load_data(dir_path):
     return np.array(sorted_images), np.array(sorted_masks)
 
 
-def preprocess_data(root_path, sorted_images, sorted_masks, input_size, augmented=False):
+def augment(features, labels):
+    
+    augmented_features = []
+    augmented_labels = []
+    
+    for feature, label in zip(features, labels):
+        augmented_features.append(feature)
+        augmented_features.append(flip_left_right(feature))
+        augmented_features.append(flip_up_down(feature))
+        rotated = rot90(feature)
+        augmented_features.append(rotated)
+        augmented_features.append(flip_left_right(rotated))
+        augmented_features.append(flip_up_down(rotated))
+        for i in range(6):
+            augmented_labels.append(label)
+            
+    return augmented_features, augmented_labels
+        
+    
+def preprocess_data(root_path, sorted_images, sorted_masks, input_size):
 
     images = []
     masks = []
@@ -41,13 +60,6 @@ def preprocess_data(root_path, sorted_images, sorted_masks, input_size, augmente
         # Append images and masks to the lists
         images.append(img_array)
         masks.append(mask_array)
-
-        if augmented:
-            images.append(flip_left_right(img_array))
-            masks.append(flip_left_right(mask_array))
-
-            # images.append(flip_up_down(img_array))
-            # masks.append(flip_up_down(mask_array))
 
     # Convert lists to numpy arrays
     images = np.array(images)
