@@ -23,7 +23,7 @@ The dataset includes 290 images and their correspoding mask, which can be consid
 
 ![Augment](images/augment.png)
 
-## Model Performance Comparations
+## Model Performance Comparisons
 
 #### Trained on original dataset
 
